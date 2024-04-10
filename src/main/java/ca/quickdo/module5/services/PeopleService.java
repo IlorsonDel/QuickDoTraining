@@ -1,4 +1,4 @@
-package ca.quickdo.module5.service;
+package ca.quickdo.module5.services;
 
 import ca.quickdo.module5.model.Person;
 

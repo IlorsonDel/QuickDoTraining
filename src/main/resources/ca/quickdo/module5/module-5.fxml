@@ -2,14 +2,38 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="15.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.quickdo.module5.Module5Controller">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="924.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.quickdo.module5.Module5Controller2">
    <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
    </padding>
-   <children>
-      <Button fx:id="btnLaunchTask" mnemonicParsing="false" text="Launch Task" />
-   </children>
+   <HBox alignment="CENTER" spacing="15.0">
+      <TextField fx:id="tfName" promptText="Name" />
+      <!--        <TextField fx:id="tfPhone" layoutX="10.0" layoutY="10.0" promptText="Phone" />-->
+      <TextField fx:id="tfEmail" layoutX="174.0" layoutY="10.0" promptText="Email" />
+      <ComboBox fx:id="cbCity" editable="true" prefWidth="150.0" promptText="City" />
+      <Button fx:id="btnPickImage" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Avatar">
+      </Button>
+      <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" text="Save">
+      </Button>
+   </HBox>
+   <StackPane VBox.vgrow="ALWAYS">
+      <TableView fx:id="tvPeople" prefHeight="200.0" prefWidth="200.0">
+         <columns>
+            <TableColumn fx:id="colAvatar" prefWidth="100.0" />
+            <TableColumn fx:id="colName" prefWidth="100.0" text="Name" />
+            <TableColumn fx:id="colPhone" prefWidth="100.0" text="Phone" />
+            <TableColumn fx:id="colEmail" prefWidth="100.0" text="Email" />
+            <TableColumn fx:id="colCity" prefWidth="100.0" text="City" />
+            <TableColumn fx:id="colAction" prefWidth="116.33331298828125" />
+         </columns>
+      </TableView>
+   </StackPane>
 </VBox>
