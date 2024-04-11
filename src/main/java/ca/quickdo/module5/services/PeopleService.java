@@ -103,5 +103,19 @@ public class PeopleService {
         }
     }
 
+    /**
+     * Deletes a {@link Person} record by their database ID
+     * @param id The person's database ID
+     * @return success status of the operation
+     * @throws SQLException
+     */
+    public static void deleteById(int id) throws SQLException {
+        assertConnection();
+        final var sql = "DELETE FROM people where id = ?;";
+        try(var statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            statement.execute();
+        }
+    }
 
 }
