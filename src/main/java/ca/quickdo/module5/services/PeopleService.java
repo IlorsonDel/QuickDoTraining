@@ -38,7 +38,7 @@ public class PeopleService {
         }
     }
 
-    public static Collection<Person> getPeople(int limit) {
+    public static Collection<Person> getPeople(int limit) throws SQLException {
         assertConnection();
         final var results = new ArrayList<Person>();
         final var sql = "SELECT * FROM people LIMIT ?;";
@@ -57,10 +57,51 @@ public class PeopleService {
                     results.add(person);
                 }
             }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-            throw new RuntimeException(e);
         }
         return results;
     }
+
+    public static Collection<String> findAllCities() throws SQLException {
+        final var cities = new ArrayList<String>();
+        assertConnection();
+        final var sql = "SELECT city FROM people;";
+        try (var statement = connection.prepareStatement(sql);
+             var resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                cities.add(resultSet.getString("city"));
+            }
+        }
+
+
+        return cities;
+    }
+
+    public static Person save(Person person) throws SQLException {
+        assertConnection();
+        final var sql = "INSERT INTO people(`names`,`phone`,`city`, `email`) VALUES (?, ?, ?, ?);";
+        try (var statement = connection.prepareStatement(sql)) {
+            statement.setString(1, person.getNames());
+            statement.setString(2, person.getPhone());
+            statement.setString(3, person.getCity());
+            statement.setString(4, person.getEmail());
+
+            statement.execute();
+
+            final var sql2 = "select * from people where id = (select max(id) from people);";
+            try (var s2 = connection.prepareStatement(sql2);
+                 var rs = s2.executeQuery()) {
+                rs.next();
+                return Person.builder()
+                        .id(rs.getInt("id"))
+                        .names(rs.getString("names"))
+                        .phone(rs.getString("phone"))
+                        .email(rs.getString("email"))
+                        .city(rs.getString("city"))
+                        .avatar(rs.getString("avatar"))
+                        .build();
+            }
+        }
+    }
+
+
 }
